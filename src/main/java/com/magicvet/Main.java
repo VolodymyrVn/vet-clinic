@@ -10,6 +10,7 @@ public class Main {
     static Scanner SCANNER = new Scanner(System.in);
 
     static String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    static String NAME_PATTERN = "^[a-zA-Z]{3,}$";
 
 
 
@@ -61,10 +62,10 @@ public class Main {
          client.email = email;
 
          System.out.println("First name: ");
-         client.firstName  = SCANNER.nextLine();
+         client.firstName  = validateName(SCANNER.nextLine(), "First name");
 
          System.out.println("Last name: ");
-         client.LastName  = SCANNER.nextLine();
+         client.LastName  = validateName(SCANNER.nextLine(), "Last name");
          return client;
     }
 
@@ -73,5 +74,16 @@ public class Main {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
 
+    }
+    static String validateName(String name, String fieldName) {
+        Pattern pattern = Pattern.compile(NAME_PATTERN);
+        Matcher matcher = pattern.matcher(name);
+
+        if (matcher.matches()) {
+            return name;
+        } else {
+            System.out.println("Invalid " + fieldName + ". Pleas enter a valid " + fieldName + ".");
+            return validateName(SCANNER.nextLine(), fieldName);
+        }
     }
 }
