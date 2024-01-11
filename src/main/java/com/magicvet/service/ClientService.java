@@ -33,10 +33,10 @@ public class ClientService {
         client.setEmail(email);
 
         System.out.println("First name: ");
-        client.setFirstName(SCANNER.nextLine()); validateName(SCANNER.nextLine(), "First name");
+        client.setFirstName(validateName(SCANNER.nextLine(), "First name"));
 
         System.out.println("Last name: ");
-        client.setLastName(SCANNER.nextLine()); validateName(SCANNER.nextLine(), "Last name");
+        client.setLastName(validateName(SCANNER.nextLine(), "Last name"));
         return client;
     }
 

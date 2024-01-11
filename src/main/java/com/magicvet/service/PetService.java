@@ -6,19 +6,27 @@ import main.java.com.magicvet.model.Pet;
 
 public class PetService {
 
-    private static String DOG_TYPE = "dog";
+    private static final String DOG_TYPE = "dog";
 
     public Pet registerNewPet() {
         Pet pet = new Pet();
 
-        System.out.print("Type (dog / cat / other): ");
-        String type = Main.SCANNER.nextLine();
+        System.out.print("Do you want to add a pet now? (yes/no): ");
+        String response = Main.SCANNER.nextLine();
 
+        if ("yes".equalsIgnoreCase(response)) {
+            System.out.print("Type (dog / cat / other): ");
+            String type = Main.SCANNER.nextLine();
 
-        if (DOG_TYPE.equals(type)) {
-            pet = buildDog();
+            if (DOG_TYPE.equals(type)) {
+                pet = buildDog();
+            } else {
+                pet = buildPet(type);
+            }
+
+            System.out.println("Pet has been added.");
         } else {
-            pet = buildPet(type);
+            System.out.println("You can add a pet later.");
         }
 
         return pet;
@@ -43,7 +51,6 @@ public class PetService {
         return dog;
     }
 
-
     private Pet buildPet(String type) {
         Pet pet = new Pet();
         pet.setType(type);
@@ -59,6 +66,4 @@ public class PetService {
 
         return pet;
     }
-
-
 }
