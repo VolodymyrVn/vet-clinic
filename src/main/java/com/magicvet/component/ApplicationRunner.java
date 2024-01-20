@@ -20,6 +20,8 @@ public class ApplicationRunner {
                 client.setPet(pet);
                 pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
 
+                System.out.println(client);
+
 
             }
         }
