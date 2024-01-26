@@ -1,6 +1,6 @@
 package main.java.com.magicvet.model;
 import java.util.Objects;
-public abstract class Pet {
+public abstract class Pet implements Comparable<Pet> {
 
     private String type;
     private String sex;
@@ -47,6 +47,14 @@ public abstract class Pet {
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
+
+    public abstract int getAgeAsInt(); // Новий абстрактний метод для отримання числового віку.
+
+    @Override
+    public int compareTo(Pet otherPet) {
+        return Integer.compare(this.getAgeAsInt(), otherPet.getAgeAsInt());
+    }
+
     @Override
     public String toString() {
         return String.format("Pet{type='%s', sex='%s', age='%s', name='%s', ownerName='%s'}",
@@ -69,4 +77,5 @@ public abstract class Pet {
     public int hashCode() {
         return Objects.hash(type, sex, age, name, ownerName);
     }
+
 }
