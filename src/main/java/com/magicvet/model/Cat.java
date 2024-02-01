@@ -13,6 +13,12 @@ public class Cat extends Pet {
     private String size;
 
     public Cat() {
+        super("", "", "", "", "");
+    }
+
+    public Cat(String type, String sex, String age, String name, String ownerName, String size) {
+        super(type, sex, age, name, ownerName);
+        this.size = size;
     }
 
     public void setSize(String size) {
