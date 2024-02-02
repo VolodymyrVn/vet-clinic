@@ -10,133 +10,17 @@ import java.util.Comparator;
 public class Sandbox {
 
     public static void main(String[] args) {
-        Dog dog1 = new Dog(Dog.Size.M);
-        dog1.setAge("5");
+        Dog dog1 = createDog(Dog.Size.M, "5", "Dog1", "Owner1", Pet.HealthState.GOOD);
+        Dog dog2 = createDog(Dog.Size.S, "3", "Dog2", "Owner2", Pet.HealthState.EXCELLENT);
+        Dog dog3 = createDog(Dog.Size.XS, "1", "Dog3", "Owner3", Pet.HealthState.FAIR);
+        Dog dog4 = createDog(Dog.Size.XL, "7", "Dog4", "Owner4", Pet.HealthState.POOR);
+        Dog dog5 = createDog(Dog.Size.L, "6", "Dog5", "Owner5", Pet.HealthState.UNKNOWN);
 
-        Dog dog2 = new Dog(Dog.Size.S);
-        dog2.setAge("3");
-
-        Dog dog3 = new Dog(Dog.Size.XS);
-        dog3.setAge("1");
-
-        Dog dog4 = new Dog(Dog.Size.XL);
-        dog4.setAge("7");
-
-        Dog dog5 = new Dog(Dog.Size.L);
-        dog5.setAge("6");
-
-        Cat cat1 = new Cat();
-        cat1.setAge("2");
-        cat1.setSize(Cat.M);
-
-        Cat cat2 = new Cat();
-        cat2.setAge("4");
-        cat2.setSize(Cat.L);
-
-        Cat cat3 = new Cat();
-        cat3.setAge("3");
-        cat3.setSize(Cat.S);
-
-        Cat cat4 = new Cat();
-        cat4.setAge("1");
-        cat4.setSize(Cat.XS);
-
-        Cat cat5 = new Cat();
-        cat5.setAge("5");
-        cat5.setSize(Cat.XL);
-
-        dog1 = new Dog(Dog.Size.M,
-                "someType",
-                "male",
-                "5",
-                "Dog1",
-                "Owner1",
-                Pet.HealthState.GOOD);
-        dog1.setAge("5");
-
-        dog2 = new Dog(Dog.Size.S,
-                "someType",
-                "female",
-                "3",
-                "Dog2",
-                "Owner2",
-                Pet.HealthState.EXCELLENT);
-        dog2.setAge("3");
-
-        dog3 = new Dog(Dog.Size.XS,
-                "someType",
-                "male",
-                "1",
-                "Dog3",
-                "Owner3",
-                Pet.HealthState.FAIR);
-        dog3.setAge("1");
-
-        dog4 = new Dog(Dog.Size.XL,
-                "someType",
-                "female",
-                "7",
-                "Dog4",
-                "Owner4",
-                Pet.HealthState.POOR);
-        dog4.setAge("7");
-
-        dog5 = new Dog(Dog.Size.L,
-                "someType",
-                "male",
-                "6",
-                "Dog5",
-                "Owner5",
-                Pet.HealthState.UNKNOWN);
-        dog5.setAge("6");
-
-        cat1 = new Cat(
-                "someType",
-                "female",
-                "2",
-                "Cat1",
-                "Owner1",
-                Cat.M, Pet.HealthState.GOOD);
-        cat1.setAge("2");
-
-        cat2 = new Cat(
-                "someType",
-                "female",
-                "4",
-                "Cat2",
-                "Owner2",
-                Cat.L, Pet.HealthState.EXCELLENT);
-        cat2.setAge("4");
-
-        cat3 = new Cat(
-                "someType",
-                "female",
-                "3",
-                "Cat3",
-                "Owner3",
-                Cat.S, Pet.HealthState.FAIR);
-        cat3.setAge("3");
-
-        cat4 = new Cat(
-                "someType",
-                "female",
-                "1",
-                "Cat4",
-                "Owner4",
-                Cat.XS, Pet.HealthState.POOR);
-        cat4.setAge("1");
-
-        cat5 = new Cat(
-                "someType",
-                "female",
-                "5",
-                "Cat5",
-                "Owner5",
-                Cat.XL, Pet.HealthState.UNKNOWN);
-        cat5.setAge("5");
-
-
-
+        Cat cat1 = createCat(Cat.Size.M, "2", "Cat1", "Owner1", Pet.HealthState.GOOD);
+        Cat cat2 = createCat(Cat.Size.L, "4", "Cat2", "Owner2", Pet.HealthState.EXCELLENT);
+        Cat cat3 = createCat(Cat.Size.S, "3", "Cat3", "Owner3", Pet.HealthState.FAIR);
+        Cat cat4 = createCat(Cat.Size.XS, "1", "Cat4", "Owner4", Pet.HealthState.POOR);
+        Cat cat5 = createCat(Cat.Size.XL, "5", "Cat5", "Owner5", Pet.HealthState.UNKNOWN);
 
         Dog[] dogs = {dog1, dog2, dog3, dog4, dog5};
         Arrays.sort(dogs, Comparator.comparingInt(dog -> dog.getSize().getValue()));
@@ -162,5 +46,17 @@ public class Sandbox {
         for (Pet pet : pets) {
             System.out.println(pet);
         }
+    }
+
+    private static Dog createDog(Dog.Size size, String age, String name, String owner, Pet.HealthState healthState) {
+        Dog dog = new Dog(size, "someType", "male", age, name, owner, healthState);
+        dog.setAge(age);
+        return dog;
+    }
+
+    private static Cat createCat(Cat.Size size, String age, String name, String owner, Pet.HealthState healthState) {
+        Cat cat = new Cat("someType", "female", age, name, owner, size, healthState);
+        cat.setAge(age);
+        return cat;
     }
 }
