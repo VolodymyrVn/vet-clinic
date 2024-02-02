@@ -4,36 +4,37 @@ import java.util.Objects;
 
 public class Cat extends Pet {
 
-    public static final String XS = "XS";
-    public static final String S = "S";
-    public static final String M = "M";
-    public static final String L = "L";
-    public static final String XL = "XL";
+    public enum Size {
+        XS, S, M, L, XL
+    }
 
-    private String size;
+    private Size size;
 
     public Cat() {
         super("", "", "", "", "");
     }
 
-    public Cat(String type, String sex, String age, String name, String ownerName, String size, HealthState healthState) {
+    public Cat(Size size) {
+        super("", "", "", "", "");
+        this.size = size;
+    }
+
+    public Cat(String type, String sex, String age, String name, String ownerName, Size size, HealthState healthState) {
         super(type, sex, age, name, ownerName);
         this.size = size;
         setHealthState(healthState);
-
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
     @Override
     public int getAgeAsInt() {
-        // Реалізація отримання числового віку для котів.
         try {
             return Integer.parseInt(getAge());
         } catch (NumberFormatException e) {
@@ -48,21 +49,21 @@ public class Cat extends Pet {
 
     @Override
     public String toString() {
-        return String.format("Dog{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', size='%s'}",
+        return String.format("Cat{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', size='%s'}",
                 getType(), getSex(), getAge(), getName(), getOwnerName(), size);
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return super.equals(o);
+        if (!super.equals(o)) return false;
+        Cat cat = (Cat) o;
+        return size == cat.size;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode());
+        return Objects.hash(super.hashCode(), size);
     }
-
 }

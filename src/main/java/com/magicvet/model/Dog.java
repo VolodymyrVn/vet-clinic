@@ -19,7 +19,6 @@ public class Dog extends Pet {
 
     }
 
-
     public void setSize(Size size) {
         this.size = size;
     }
