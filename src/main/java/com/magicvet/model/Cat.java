@@ -16,9 +16,11 @@ public class Cat extends Pet {
         super("", "", "", "", "");
     }
 
-    public Cat(String type, String sex, String age, String name, String ownerName, String size) {
+    public Cat(String type, String sex, String age, String name, String ownerName, String size, HealthState healthState) {
         super(type, sex, age, name, ownerName);
         this.size = size;
+        setHealthState(healthState);
+
     }
 
     public void setSize(String size) {
@@ -46,9 +48,10 @@ public class Cat extends Pet {
 
     @Override
     public String toString() {
-        return String.format("Cat{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', size='%s'}",
+        return String.format("Dog{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', size='%s'}",
                 getType(), getSex(), getAge(), getName(), getOwnerName(), size);
     }
+
 
     @Override
     public boolean equals(Object o) {

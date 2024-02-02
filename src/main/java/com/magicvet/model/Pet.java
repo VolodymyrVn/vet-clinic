@@ -7,6 +7,7 @@ public abstract class Pet implements Comparable<Pet> {
     private String age;
     private String name;
     private String ownerName;
+    private HealthState healthState;
 
     public Pet(String type, String sex, String age, String name, String ownerName) {
         this.type = type;
@@ -56,6 +57,14 @@ public abstract class Pet implements Comparable<Pet> {
         this.ownerName = ownerName;
     }
 
+    public HealthState getHealthState() { // ДОДАНО
+        return healthState;
+    }
+
+    public void setHealthState(HealthState healthState) { // ДОДАНО
+        this.healthState = healthState;
+    }
+
     public abstract int getAgeAsInt(); // Новий абстрактний метод для отримання числового віку.
 
     @Override
@@ -84,6 +93,14 @@ public abstract class Pet implements Comparable<Pet> {
     @Override
     public int hashCode() {
         return Objects.hash(type, sex, age, name, ownerName);
+    }
+
+    public enum HealthState {
+        EXCELLENT,
+        GOOD,
+        FAIR,
+        POOR,
+        UNKNOWN
     }
 
 }
