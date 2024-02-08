@@ -1,6 +1,10 @@
 package main.java.com.magicvet.model;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 public abstract class Pet implements Comparable<Pet> {
+
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
 
     private String type;
     private String sex;
@@ -8,6 +12,7 @@ public abstract class Pet implements Comparable<Pet> {
     private String name;
     private String ownerName;
     private HealthState healthState;
+    public final LocalDateTime registrationDate = LocalDateTime.now();
 
     public Pet(String type, String sex, String age, String name, String ownerName) {
         this.type = type;
@@ -74,8 +79,8 @@ public abstract class Pet implements Comparable<Pet> {
 
     @Override
     public String toString() {
-        return String.format("Pet{type='%s', sex='%s', age='%s', name='%s', ownerName='%s'}",
-                type, sex, age, name, ownerName);
+        return String.format("Pet{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', registrationDate='%s'}",
+                type, sex, age, name, ownerName, registrationDate.format(FORMATTER));
     }
 
     @Override
@@ -94,6 +99,7 @@ public abstract class Pet implements Comparable<Pet> {
     public int hashCode() {
         return Objects.hash(type, sex, age, name, ownerName);
     }
+
 
     public enum HealthState {
         EXCELLENT,

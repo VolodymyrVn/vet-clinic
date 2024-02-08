@@ -36,7 +36,7 @@ public class Sandbox {
 
         // Виводимо відсортований список
         for (Pet pet : pets) {
-            System.out.println(pet);
+            System.out.println(pet + ", Registration Date: " + pet.registrationDate.format(Pet.FORMATTER));
         }
 
         // Сортуємо тварин за станом здоров'я
@@ -44,7 +44,7 @@ public class Sandbox {
 
         // Виводимо відсортований список за станом здоров'я
         for (Pet pet : pets) {
-            System.out.println(pet);
+            System.out.println(pet + ", Registration Date: " + pet.registrationDate.format(Pet.FORMATTER));
         }
     }
 
