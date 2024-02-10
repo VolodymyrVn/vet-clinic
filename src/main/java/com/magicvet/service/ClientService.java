@@ -18,7 +18,7 @@ public class ClientService {
         do {
             System.out.println("Email: ");
             email = SCANNER.nextLine();
-            if (!isEmailValid(email)) {
+            if (isEmailValid(email)) {
                 System.out.println("Provided email is invalid. Please enter a valid email.");
             }
         } while (!isEmailValid(email));
