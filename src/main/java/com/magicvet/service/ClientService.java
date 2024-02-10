@@ -11,19 +11,22 @@ public class ClientService {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     public Client registerNewClient() {
-        Client client = null;
+        Client client;
         System.out.println("Please provide client details.");
-        System.out.println("Email: ");
-        String email = SCANNER.nextLine();
 
-        if (isEmailValid(email)) {
-            client = buildClient(email);
-            System.out.println("New client: " + client.getFirstName() + " "
-                    + client.getLastName() + " ("
-                    + client.getEmail() + ")");
-        } else {
-            System.out.println("Provided email is invalid.");
-        }
+        String email;
+        do {
+            System.out.println("Email: ");
+            email = SCANNER.nextLine();
+            if (isEmailValid(email)) {
+                System.out.println("Provided email is invalid. Please enter a valid email.");
+            }
+        } while (!isEmailValid(email));
+
+        client = buildClient(email);
+        System.out.println("New client: " + client.getFirstName() + " "
+                + client.getLastName() + " ("
+                + client.getEmail() + ")");
         return client;
     }
 

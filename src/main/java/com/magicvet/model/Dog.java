@@ -63,7 +63,7 @@ public class Dog extends Pet {
 
     @Override
     public String toString() {
-        return String.format("Dog{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', size='%s'}",
+        return String.format("Pet{type=%s, sex=%s, age=%s, name=%s, ownerName=%s, size=%s}",
                 getType(), getSex(), getAge(), getName(), getOwnerName(), size);
     }
 
