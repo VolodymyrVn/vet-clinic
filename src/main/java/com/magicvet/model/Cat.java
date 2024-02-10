@@ -49,7 +49,7 @@ public class Cat extends Pet {
 
     @Override
     public String toString() {
-        return String.format("Cat{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', size='%s'}",
+        return String.format("Pet{type=%s, sex=%s, age=%s, name=%s, ownerName=%s, size=%s}",
                 getType(), getSex(), getAge(), getName(), getOwnerName(), size);
     }
 

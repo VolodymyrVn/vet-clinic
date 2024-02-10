@@ -50,6 +50,11 @@ public class PetService {
             System.out.println("Size (XS / S / M / L / XL): ");
             String size = Main.SCANNER.nextLine();
             ((Dog) pet).setSize(Dog.Size.valueOf(size));
+        }   else if (type.equals(CAT_TYPE)) {
+            System.out.println("Size (XS / S / M / L / XL): ");
+            String size = Main.SCANNER.nextLine();
+            // Задайте розмір кота
+            ((Cat) pet).setSize(Cat.Size.valueOf(size));
         }
 
         return pet;
