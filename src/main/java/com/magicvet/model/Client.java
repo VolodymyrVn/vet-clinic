@@ -11,6 +11,7 @@ public class Client {
     private String lastName;
     private String email;
     private List<Pet> pets = new ArrayList<>();
+    private Location Location;
     private final LocalDateTime registrationDate = LocalDateTime.now();
     private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
@@ -22,6 +23,7 @@ public class Client {
                 + "\n\tfirstName = " + firstName
                 + ", lastName = " + lastName
                 + ", email = " + email
+                + ", Location = " + Location
                 + ",\n\tpets = " + pets
                 + ",\n\tregistrationDate = " + registrationDate.format(FORMATTER)
                 + "\n}";
@@ -67,16 +69,28 @@ public class Client {
         return email;
     }
 
-    public List<Pet> getPet() {
+    public List<Pet> getPets() {
         return pets;
     }
 
-    public void setPet(List<Pet> pets) {
+    public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
 
     public void addPet(Pet pet){
         pets.add(pet);
+    }
+
+    public Client.Location getLocation() {
+        return Location;
+    }
+
+    public void setLocation(Client.Location location) {
+        Location = location;
+    }
+
+    public enum Location {
+        KYIV, LVIV, ODESA
     }
 }
 

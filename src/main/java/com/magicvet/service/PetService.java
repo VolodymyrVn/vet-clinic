@@ -12,22 +12,13 @@ public class PetService {
 
     public Pet registerNewPet() {
         Pet pet = null;
+        System.out.print("Type (dog / cat): ");
+        String type = Main.SCANNER.nextLine();
 
-        System.out.print("Do you want to add a pet now? (yes/no): ");
-        String response = Main.SCANNER.nextLine();
-
-        if ("yes".equalsIgnoreCase(response)) {
-            System.out.print("Type (dog / cat: ");
-            String type = Main.SCANNER.nextLine();
-
-            if (DOG_TYPE.equals(type) || CAT_TYPE.equals(type)) {
-                pet = buildPet(type);
-            } else {
-                System.out.println("Unknown pet type: " + type);
-            }
-
+        if (DOG_TYPE.equals(type) || CAT_TYPE.equals(type)) {
+            pet = buildPet(type);
         } else {
-            System.out.println("You can add a pet later.");
+            System.out.println("Unknown pet type: " + type);
         }
 
         return pet;
