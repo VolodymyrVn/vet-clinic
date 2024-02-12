@@ -1,5 +1,6 @@
 package main.java.com.magicvet.service;
 
+import main.java.com.magicvet.Main;
 import main.java.com.magicvet.model.Client;
 
 import java.util.Scanner;
@@ -11,35 +12,52 @@ public class ClientService {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     public Client registerNewClient() {
-        Client client;
         System.out.println("Please provide client details.");
 
-        String email;
-        do {
-            System.out.println("Email: ");
-            email = SCANNER.nextLine();
-            if (isEmailValid(email)) {
-                System.out.println("Provided email is invalid. Please enter a valid email.");
-            }
-        } while (!isEmailValid(email));
+        String email = getEmailFromUser();
+        String firstName = getValidatedName("First name");
+        String lastName = getValidatedName("Last name");
+        String location = getLocationFromUser();
 
-        client = buildClient(email);
+        Client client = new Client();
+        client.setEmail(email);
+        client.setFirstName(firstName);
+        client.setLastName(lastName);
+        client.setLocation(Client.Location.valueOf(location));
+
         System.out.println("New client: " + client.getFirstName() + " "
                 + client.getLastName() + " ("
                 + client.getEmail() + ")");
         return client;
     }
 
-    private static Client buildClient(String email) {
-        Client client = new Client();
-        client.setEmail(email);
+    private String getEmailFromUser() {
+        String email;
+        do {
+            System.out.println("Email: ");
+            email = SCANNER.nextLine();
+            if (!isEmailValid(email)) {
+                System.out.println("Provided email is invalid. Please enter a valid email.");
+            }
+        } while (!isEmailValid(email));
+        return email;
+    }
 
-        System.out.println("First name: ");
-        client.setFirstName(validateName(SCANNER.nextLine(), "First name"));
+    private String getValidatedName(String fieldName) {
+        String name;
+        do {
+            System.out.println(fieldName + ": ");
+            name = SCANNER.nextLine();
+            if (!isNameValid(name)) {
+                System.out.println("Invalid " + fieldName + ". Please enter a valid " + fieldName + ".");
+            }
+        } while (!isNameValid(name));
+        return name;
+    }
 
-        System.out.println("Last name: ");
-        client.setLastName(validateName(SCANNER.nextLine(), "Last name"));
-        return client;
+    private String getLocationFromUser() {
+        System.out.println("Location: ");
+        return Main.SCANNER.nextLine();
     }
 
     private static boolean isEmailValid(String email) {
@@ -49,17 +67,10 @@ public class ClientService {
         return matcher.matches();
     }
 
-    private static String validateName(String name, String fieldName) {
+    private static boolean isNameValid(String name) {
         String NAME_PATTERN = "^[a-zA-Z]{3,}$";
         Pattern pattern = Pattern.compile(NAME_PATTERN);
         Matcher matcher = pattern.matcher(name);
-
-        if (matcher.matches()) {
-            return name;
-        } else {
-            System.out.println("Invalid " + fieldName + ". Please enter a valid " + fieldName + ".");
-            return validateName(SCANNER.nextLine(), fieldName);
-        }
+        return matcher.matches();
     }
 }
-
