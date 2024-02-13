@@ -5,7 +5,18 @@ import java.util.Objects;
 public class Cat extends Pet {
 
     public enum Size {
-        XS, S, M, L, XL
+        XS, S, M, L, XL, UNKNOWN;
+
+        public static Size fromString(String value) {
+            for (Size size : Size.values()) {
+                if (size.toString().equalsIgnoreCase(value)) {
+                    return size;
+                }
+            }
+
+            System.out.println("Unable to parse value '" + value + "'. Using default value: " + UNKNOWN);
+            return UNKNOWN;
+        }
     }
 
     private Size size;
