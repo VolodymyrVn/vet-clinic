@@ -23,12 +23,27 @@ public class ClientService {
         client.setEmail(email);
         client.setFirstName(firstName);
         client.setLastName(lastName);
-        client.setLocation(Client.Location.valueOf(location));
+
+        // Використання методу fromString для обробки рядка location
+        client.setLocation(fromString(location));
 
         System.out.println("New client: " + client.getFirstName() + " "
                 + client.getLastName() + " ("
                 + client.getEmail() + ")");
+
         return client;
+    }
+
+    // Доданий метод fromString для обробки рядка
+    private static Client.Location fromString(String value) {
+        for (Client.Location location : Client.Location.values()) {
+            if (location.toString().equalsIgnoreCase(value)) {
+                return location;
+            }
+        }
+
+        System.out.println("Unable to parse value '" + value + "'. Using default value: " + Client.Location.UNKNOWN);
+        return Client.Location.UNKNOWN;
     }
 
     private String getEmailFromUser() {
