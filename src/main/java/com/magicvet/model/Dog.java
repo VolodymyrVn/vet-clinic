@@ -15,7 +15,6 @@ public class Dog extends Pet {
     public Dog(Size size, String type, String sex, String age, String name, String ownerName, HealthState healthState) {
         super(type, sex, age, name, ownerName);
         this.size = size;
-        setHealthState(healthState);
 
     }
 
@@ -75,8 +74,9 @@ public class Dog extends Pet {
 
     @Override
     public String toString() {
-        return String.format("Pet{type=%s, sex=%s, age=%s, name=%s, ownerName=%s, size=%s}",
-                getType(), getSex(), getAge(), getName(), getOwnerName(), size);
+        return String.format("Pet{type=%s, sex=%s, age=%s, name=%s," +
+                             " ownerName=%s, size=%s, healthState=%s}",
+                getType(), getSex(), getAge(), getName(), getOwnerName(), size, getHealthState());
     }
 
     @Override

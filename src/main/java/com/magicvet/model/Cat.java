@@ -33,7 +33,6 @@ public class Cat extends Pet {
     public Cat(String type, String sex, String age, String name, String ownerName, Size size, HealthState healthState) {
         super(type, sex, age, name, ownerName);
         this.size = size;
-        setHealthState(healthState);
     }
 
     public void setSize(Size size) {
@@ -60,8 +59,9 @@ public class Cat extends Pet {
 
     @Override
     public String toString() {
-        return String.format("Pet{type=%s, sex=%s, age=%s, name=%s, ownerName=%s, size=%s}",
-                getType(), getSex(), getAge(), getName(), getOwnerName(), size);
+        return String.format("Pet{type=%s, sex=%s, age=%s, name=%s," +
+                             " ownerName=%s, size=%s, healthState=%s}",
+                getType(), getSex(), getAge(), getName(), getOwnerName(), size, getHealthState());
     }
 
     @Override

@@ -36,7 +36,9 @@ public class Sandbox {
 
         // Виводимо відсортований список
         for (Pet pet : pets) {
-            System.out.println(pet + ", Registration Date: " + pet.registrationDate.format(Pet.FORMATTER));
+                System.out.println(pet + ", Registration Date: "
+                        + pet.registrationDate.format(Pet.FORMATTER)
+                        + ", Health State: " + pet.getHealthState());
         }
 
         // Сортуємо тварин за станом здоров'я
@@ -44,19 +46,24 @@ public class Sandbox {
 
         // Виводимо відсортований список за станом здоров'я
         for (Pet pet : pets) {
-            System.out.println(pet + ", Registration Date: " + pet.registrationDate.format(Pet.FORMATTER));
+                System.out.println(pet + ", Registration Date: "
+                        + pet.registrationDate.format(Pet.FORMATTER)
+                        + ", Health State: " + pet.getHealthState());
+
         }
     }
 
     private static Dog createDog(Dog.Size size, String age, String name, String owner, Pet.HealthState healthState) {
         Dog dog = new Dog(size, "someType", "male", age, name, owner, healthState);
         dog.setAge(age);
+        dog.setHealthState(healthState); // Встановлення healthState
         return dog;
     }
 
     private static Cat createCat(Cat.Size size, String age, String name, String owner, Pet.HealthState healthState) {
         Cat cat = new Cat("someType", "female", age, name, owner, size, healthState);
         cat.setAge(age);
+        cat.setHealthState(healthState); // Встановлення healthState
         return cat;
     }
 }

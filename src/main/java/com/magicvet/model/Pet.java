@@ -2,6 +2,8 @@ package main.java.com.magicvet.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Scanner;
+
 public abstract class Pet implements Comparable<Pet> {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
@@ -70,6 +72,20 @@ public abstract class Pet implements Comparable<Pet> {
         this.healthState = healthState;
     }
 
+    public void setHealthStateFromUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter health state (EXCELLENT, GOOD, FAIR, POOR, UNKNOWN):");
+        String input = scanner.nextLine().toUpperCase();
+
+        try {
+            HealthState state = HealthState.valueOf(input);
+            setHealthState(state);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid input. Defaulting to CONSULTATION.");
+            setHealthState(HealthState.CONSULTATION);
+        }
+    }
+
     public abstract int getAgeAsInt(); // Новий абстрактний метод для отримання числового віку.
 
     @Override
@@ -79,8 +95,10 @@ public abstract class Pet implements Comparable<Pet> {
 
     @Override
     public String toString() {
-        return String.format("Pet{type='%s', sex='%s', age='%s', name='%s', ownerName='%s', registrationDate='%s'}",
-                type, sex, age, name, ownerName, registrationDate.format(FORMATTER));
+        return String.format("Pet{type=%s, sex=%s, age=%s, name=%s," +
+                             " ownerName=%s, healthState=%s," +
+                             " registrationDate=%s}",
+                type, sex, age, name, ownerName, healthState, registrationDate.format(FORMATTER));
     }
 
     @Override
@@ -106,7 +124,7 @@ public abstract class Pet implements Comparable<Pet> {
         GOOD,
         FAIR,
         POOR,
-        UNKNOWN
+        CONSULTATION, UNKNOWN
     }
 
 }
