@@ -92,6 +92,7 @@ public class EntityRegister {
         if (pet != null) {
             client.addPet(pet);
             pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
+            pet.setHealthStateFromUserInput();
             System.out.println("Pet has been added.");
 
         }

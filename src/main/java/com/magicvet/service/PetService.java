@@ -29,13 +29,36 @@ public class PetService {
         pet.setType(type);
 
         System.out.print("Age: ");
-        pet.setAge(Main.SCANNER.nextLine());
+        String age;
+        do {
+            age = Main.SCANNER.nextLine();
+
+            // Перевірка, чи введене значення для віку є числом
+            if (!age.matches("\\d+")) {
+                System.out.println("Invalid age. Please enter a numeric value for age.");
+            } else {
+                int ageValue = Integer.parseInt(age);
+                if (ageValue < 1 || ageValue > 20) {
+                    System.out.println("Invalid age. Please enter a value between 1 and 20.");
+                    age = ""; // Скидаємо значення age, щоб повторно запросити введення
+                }
+            }
+        } while (age.isEmpty() || !age.matches("\\d+") || Integer.parseInt(age) < 1 || Integer.parseInt(age) > 20);
+
+        pet.setAge(age);
 
         System.out.print("Name: ");
         pet.setName(Main.SCANNER.nextLine());
 
         System.out.print("Sex (male / female): ");
-        pet.setSex(Main.SCANNER.nextLine());
+        String sex;
+        do {
+            sex = Main.SCANNER.nextLine();
+            if (!sex.equalsIgnoreCase("male") && !sex.equalsIgnoreCase("female")) {
+                System.out.println("Invalid input. Please enter 'male' or 'female'.");
+            }
+        } while (!sex.equalsIgnoreCase("male") && !sex.equalsIgnoreCase("female"));
+        pet.setSex(sex);
 
         if (type.equals(DOG_TYPE)) {
             System.out.println("Size (XS / S / M / L / XL): ");
