@@ -7,9 +7,6 @@ public class ApplicationRunner {
     public void run() {
         if (Authenticator.auth()){
             register.registerClients();
-
         }
-
     }
-
 }

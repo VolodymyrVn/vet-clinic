@@ -3,6 +3,7 @@ package main.java.com.magicvet.service;
 import main.java.com.magicvet.Main;
 import main.java.com.magicvet.model.Client;
 
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,7 +12,7 @@ public class ClientService {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public Client registerNewClient() {
+    public Optional<Client> registerNewClient() {
         System.out.println("Please provide client details.");
 
         String email = getEmailFromUser();
@@ -31,7 +32,7 @@ public class ClientService {
                 + client.getLastName() + " ("
                 + client.getEmail() + ")");
 
-        return client;
+        return Optional.of(client);
     }
 
     // Доданий метод fromString для обробки рядка
