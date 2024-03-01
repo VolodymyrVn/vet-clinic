@@ -5,11 +5,11 @@ import main.java.com.magicvet.model.Client;
 import main.java.com.magicvet.model.Pet;
 import main.java.com.magicvet.service.ClientService;
 import main.java.com.magicvet.service.PetService;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class EntityRegister {
 
@@ -20,13 +20,12 @@ public class EntityRegister {
         List<Client> clients = new ArrayList<>();
         String message = "Do you want to add register more clients? (y/n): ";
         do {
-         Client client = addClient();
-            if (client != null) {
-                clients.add(client); //Додано клієнта до списку клієнтів
-            }
+            Optional<Client> client = addClient();
+            client.ifPresent(clients::add);
         } while (verifyRepeating(message));
 
-        Map<Client.Location, List<Client>> clientsByLocation = groupClients(clients);
+        Map<Client.Location, List<Client>> clientsByLocation = clients.stream()
+                .collect(Collectors.groupingBy(Client::getLocation));
         printClients(clientsByLocation);
 
     }
@@ -41,60 +40,35 @@ public class EntityRegister {
 
         }
     }
-
-    private Map<Client.Location, List<Client>> groupClients(List<Client> clients) {
-        List<Client> fromKyiv = new ArrayList<>();
-        List<Client> fromLviv = new ArrayList<>();
-        List<Client> fromOdesa = new ArrayList<>();
-        List<Client> unknownLocation = new ArrayList<>();
-
-        for (Client client : clients) {
-            switch (client.getLocation()) {
-                case KYIV -> fromKyiv.add(client);
-                case LVIV -> fromLviv.add(client);
-                case ODESA -> fromOdesa.add(client);
-                case UNKNOWN -> unknownLocation.add(client);
-            }
-        }
-
-        Map<Client.Location, List<Client>> clientsByLocation = new HashMap<>();
-        clientsByLocation.put(Client.Location.KYIV, fromKyiv);
-        clientsByLocation.put(Client.Location.LVIV, fromLviv);
-        clientsByLocation.put(Client.Location.ODESA, fromOdesa);
-        clientsByLocation.put(Client.Location.UNKNOWN, unknownLocation);
-
-        return clientsByLocation;
-
-
-    }
-
-    private Client addClient() {
-        Client client = clientService.registerNewClient();
-        if (client != null ) {
-            String message = "Do you want to add a pet now? (y/n): ";
-            if (verifyRepeating(message)) {
-                registerPets(client);
-            }
-        }
+    private Optional<Client> addClient() {
+        Optional<Client> client = clientService.registerNewClient();
+        client.ifPresent(this::registerPets);
         return client;
     }
 
     private void registerPets(Client client) {
         String message = "Do you want to add more pets to the current client? (y/n): ";
-        do  {
+        boolean addedPet;
+        do {
             addPet(client);
-       }  while (verifyRepeating(message));
+            addedPet = !client.getPets().isEmpty();
+        } while (!addedPet || verifyRepeating(message));
     }
-    private void addPet(Client client){
-        System.out.println("Adding a new pet.");
 
-        Pet pet = petService.registerNewPet();
-        if (pet != null) {
+    private boolean petAdded = false; // Флаг, щоб визначити, чи був вже доданий питомець для нового клієнта
+
+    private void addPet(Client client) {
+        if (!petAdded) {
+            System.out.println("Adding a new pet."); // Виводимо повідомлення лише якщо питомець ще не був доданий
+            petAdded = true; // Встановлюємо флаг, що питомець був доданий
+        }
+        Optional<Pet> petOptional = petService.registerNewPet();
+        if (petOptional.isPresent()) {
+            Pet pet = petOptional.get();
             client.addPet(pet);
             pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
             pet.setHealthStateFromUserInput();
             System.out.println("Pet has been added.");
-
         }
     }
 
