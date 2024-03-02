@@ -10,7 +10,7 @@ public class Client {
     private String firstName;
     private String lastName;
     private String email;
-    private List<Pet> pets = new ArrayList<>();
+    private final List<Pet> pets = new ArrayList<>();
     private Location Location;
     private final LocalDateTime registrationDate = LocalDateTime.now();
     private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -73,10 +73,6 @@ public class Client {
         return pets;
     }
 
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
-    }
-
     public void addPet(Pet pet){
         pets.add(pet);
     }
@@ -91,6 +87,7 @@ public class Client {
 
     public enum Location {
         KYIV, LVIV, ODESA, UNKNOWN
+
     }
 }
 

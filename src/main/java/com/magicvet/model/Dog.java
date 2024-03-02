@@ -1,95 +1,79 @@
 package main.java.com.magicvet.model;
+
 import java.util.Objects;
+
 public class Dog extends Pet {
 
-    private Size size;
+    private Size size; // Розмір собаки
 
     public Dog() {
+        // Виклик конструктора батьківського класу з порожніми рядками
         super("", "", "", "", "");
     }
 
     public Dog(Size size) {
+        // Виклик конструктора батьківського класу з порожніми рядками
         super("", "", "", "", "");
-        this.size = size;
+        this.size = size; // Ініціалізація розміру собаки
     }
-    public Dog(Size size, String type, String sex, String age, String name, String ownerName, HealthState healthState) {
-        super(type, sex, age, name, ownerName);
-        this.size = size;
 
+    public Dog(Size size, String type, String sex, String age, String name, String ownerName, HealthState healthState) {
+        super(type, sex, age, name, ownerName); // Виклик конструктора батьківського класу з параметрами
+        this.size = size; // Ініціалізація розміру собаки
+        setHealthState(healthState); // Встановлення стану здоров'я
     }
 
     public void setSize(Size size) {
-        this.size = size;
+        this.size = size; // Встановлення розміру собаки
     }
 
     public Size getSize() {
-        return size;
-    }
-
-    public enum Size {
-        XS(1),
-        S(2),
-        M(3),
-        L(4),
-        XL(5),
-        UNKNOWN(0);
-
-        private final int value;
-
-        Size(int value) {
-            this.value = value;
-        }
-
-        public static Size fromString(String value) {
-            for (Size size : values()) {
-                if (size.toString().equals(value)) {
-                    return size;
-                }
-            }
-
-            System.out.println("Unable to parse value '" + value + "'. Using default value: " + UNKNOWN);
-
-            return UNKNOWN;
-        }
-
-        public int getValue() {
-            return value;
-        }
+        return size; // Отримання розміру собаки
     }
 
     @Override
     public int getAgeAsInt() {
-        // Реалізація отримання числового віку для собаки.
         try {
-            return Integer.parseInt(getAge());
+            return Integer.parseInt(getAge()); // Перетворення рядкового віку на ціле число
         } catch (NumberFormatException e) {
-            return 0;
+            return 0; // Повернення 0 у разі невдалого перетворення
         }
-    }
-
-    @Override
-    public int compareTo(Pet otherPet) {
-        return Integer.compare(this.getAgeAsInt(), otherPet.getAgeAsInt());
     }
 
     @Override
     public String toString() {
         return String.format("Pet{type=%s, sex=%s, age=%s, name=%s," +
-                             " ownerName=%s, size=%s, healthState=%s}",
+                        " ownerName=%s, size=%s, healthState=%s}",
+                // Повернення рядка із даними про собаку
                 getType(), getSex(), getAge(), getName(), getOwnerName(), size, getHealthState());
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Dog dog = (Dog) o;
-        return Objects.equals(size, dog.size);
+        if (this == o) return true; // Перевірка на посилання на той самий об'єкт
+        if (o == null || getClass() != o.getClass()) return false; // Перевірка на класи
+        if (!super.equals(o)) return false; // Перевірка на спадковість
+        Dog dog = (Dog) o; // Приведення до класу собаки
+        return size == dog.size; // Порівняння розмірів собак
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), size);
+        return Objects.hash(super.hashCode(), size); // Обчислення хеш-коду
+    }
+
+    public enum Size {
+        XS, S, M, L, XL, UNKNOWN; // Розміри собак та невідомий розмір
+
+        // Метод для перетворення рядкового значення на об'єкт перерахування
+        public static Size fromString(String value) {
+            for (Size size : Size.values()) {
+                if (size.toString().equals(value)) {
+                    return size;
+                }
+            }     // Повідомлення у разі невдалого парсингу
+            System.out.println("Unable to parse value '" + value + "'. Using default value: " + UNKNOWN);
+            return UNKNOWN; // Повернення значення за замовчуванням
+        }
     }
 }

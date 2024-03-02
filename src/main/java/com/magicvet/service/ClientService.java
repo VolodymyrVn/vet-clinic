@@ -52,9 +52,6 @@ public class ClientService {
         do {
             System.out.println("Email: ");
             email = SCANNER.nextLine();
-            if (!isEmailValid(email)) {
-                System.out.println("Provided email is invalid. Please enter a valid email.");
-            }
         } while (!isEmailValid(email));
         return email;
     }
@@ -64,9 +61,6 @@ public class ClientService {
         do {
             System.out.println(fieldName + ": ");
             name = SCANNER.nextLine();
-            if (!isNameValid(name)) {
-                System.out.println("Invalid " + fieldName + ". Please enter a valid " + fieldName + ".");
-            }
         } while (!isNameValid(name));
         return name;
     }
@@ -80,13 +74,21 @@ public class ClientService {
         String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        if (!matcher.matches()) {
+            System.out.println("Provided email is invalid. Please enter a valid email.");
+            return false;
+        }
+        return true;
     }
 
     private static boolean isNameValid(String name) {
         String NAME_PATTERN = "^[a-zA-Z]{3,}$";
         Pattern pattern = Pattern.compile(NAME_PATTERN);
         Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
+        if (!matcher.matches()) {
+            System.out.println("Invalid name. Please enter a valid name.");
+            return false;
+        }
+        return true;
     }
 }
